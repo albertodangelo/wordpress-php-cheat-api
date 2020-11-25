@@ -1,0 +1,42 @@
+<pre>
+    <code>
+class User {
+
+    // Properties / Eigenchaften
+    public $name = "";
+    public $age = "";
+
+    public function __construct($name, $age) {
+        echo "Klasse " . __CLASS__ . ' gestartet<br />';
+        
+        $this->name = $name;
+        $this->age = $age;
+    }
+    
+    // Methods / Funktionen
+    public function sayHello() {
+        return $this->name . ' sagt Hallo.';
+    }
+    
+    public function __destruct() {
+        echo "<br />Klasse " . __CLASS__ . ' wurde beendet<br />';
+
+    }
+}
+
+$user1 = new User('Alberto', 30);
+echo $user1->name . " ist " . $user1->age . ' Jahre alt';
+echo '<br />';
+echo $user1->sayHello();
+echo '<br />';
+echo '<br />';
+echo '<br />';
+
+$user2 = new User('Marion', 25);
+echo $user2->name . " ist " . $user1->age . ' Jahre alt';
+echo '<br />';
+echo $user2->sayHello();
+echo '<br />';
+
+</code>
+</pre>

@@ -1,0 +1,25 @@
+<pre>
+<code>
+
+class User {
+
+    // Properties / Eigenchaften
+    public $name = "";
+
+    // Methods / Funktionen
+    public function sayHello() {
+        return $this->$name . ' sagt Hallo.';
+    }
+}
+
+$user1 = new User();
+echo $user1->name = "Alberto";
+echo $user1->sayHello();
+
+echo '<br />';
+
+$user2 = new User();
+echo $user2->name = "Marion";
+echo $user2->sayHello();
+</code>
+</pre>

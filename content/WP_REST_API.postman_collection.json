@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "fa97ebef-a883-4497-a661-1a09ca4ed528",
+		"name": "WP REST API",
+		"description": "Common routes for the WP REST API.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "REST API root",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						""
+					]
+				},
+				"description": "Root route for the REST API. Provides a list of all routes and endpoints that can be used on the site.\n\nhttps://developer.wordpress.org/rest-api/discovery/"
+			},
+			"response": []
+		},
+		{
+			"name": "REST API index",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2"
+					]
+				},
+				"description": "List of all available routes and endpoints on the site.\n\nhttps://developer.wordpress.org/rest-api/discovery/"
+			},
+			"response": []
+		},
+		{
+			"name": "Post Types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/types",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"types"
+					]
+				},
+				"description": "Gets all post types currently available on the site. \n\nhttps://developer.wordpress.org/rest-api/reference/post-types/"
+			},
+			"response": []
+		},
+		{
+			"name": "Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/posts/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"posts",
+						""
+					]
+				},
+				"description": "Returns the 10 most recent posts.\n\nhttps://developer.wordpress.org/rest-api/reference/posts/"
+			},
+			"response": []
+		},
+		{
+			"name": "Pages",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/pages/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"pages",
+						""
+					]
+				},
+				"description": "Returns the 10 most recent pages.\n\nhttps://developer.wordpress.org/rest-api/reference/pages/"
+			},
+			"response": []
+		},
+		{
+			"name": "Categories",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/categories",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"categories"
+					]
+				},
+				"description": "Returns the 10 first categories defined on the site in alphabetical order.\n\nhttps://developer.wordpress.org/rest-api/reference/categories/"
+			},
+			"response": []
+		},
+		{
+			"name": "Tags",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/tags",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"tags"
+					]
+				},
+				"description": "Returns the 10 first tags defined on the site in alphabetical order.\n\nhttps://developer.wordpress.org/rest-api/reference/tags/"
+			},
+			"response": []
+		},
+		{
+			"name": "Comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/comments",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"comments"
+					]
+				},
+				"description": "Returns the 10 most recent comments.\n\nhttps://developer.wordpress.org/rest-api/reference/comments/"
+			},
+			"response": []
+		},
+		{
+			"name": "Taxonomies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/taxonomies",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"taxonomies"
+					]
+				},
+				"description": "Returns the available taxonomies defined on the site\n\nhttps://developer.wordpress.org/rest-api/reference/taxonomies/"
+			},
+			"response": []
+		},
+		{
+			"name": "Media",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/media",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"media"
+					]
+				},
+				"description": "Returns the most recent media items.\n\nhttps://developer.wordpress.org/rest-api/reference/media/"
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"Body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic cG9zdG1hbjpwYXNzd29yZA=="
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/wp-json/wp/v2/users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"wp-json",
+						"wp",
+						"v2",
+						"users"
+					]
+				},
+				"description": "Returns the users registered on the site.\n\nhttps://developer.wordpress.org/rest-api/reference/users/"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

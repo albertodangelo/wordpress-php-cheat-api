@@ -1,0 +1,23 @@
+<pre>
+<code>
+    
+class Posts {
+
+    public function __construct() {
+        $this->postModel = $this->model('post');
+    }
+
+    public function edit($id) {
+        
+        // Die Daten des Posts werden aus der Datenbank geladen
+        $post = $this->postModel->fetchPost($id);
+
+        // Die Daten werden im Frontend dargestellt
+        $post->view('edit', ['post'] => $post) 
+    }
+}
+
+// Resultat
+ echo data['title']; 
+</code>
+</pre>

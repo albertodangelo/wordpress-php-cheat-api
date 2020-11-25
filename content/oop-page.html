@@ -1,0 +1,540 @@
+<!-- FETCH API -->
+<div id="fetch-container">
+  <h1 style="margin-bottom: 0">PHP OOP</h1>
+  <p style="font-size:12px; padding-bottom: 20px;">Udemy-Kurs | Dozent: Brad Treversy</p>
+  <div class="container-content">
+    <div class="menu-rest-api headless">
+      <button id="introduction" class="active">OOP-Einführung</button>
+      <button id="framework">MVC Core-Framework</button>
+      <button id="workflow">Workflow</button>
+      <button id="struktur">Filestruktur</button>
+      <button id="htaccess">.htaccess / nginx</button>
+      <button id="aufbau-core">Aufbau des Core-Frameworks</button>
+      <button id="example-api">Beispiel einer API mit dem Core-Framework</button>
+    </div>
+
+    <div id="introduction-content" class="show">
+      <div>
+        <h2 class="no-margin-top">OOP Einführung</h2>
+        <p>
+          <ul>
+            <li><strong>Einfachst mögliche Klasse</strong><br />
+              <a target="_blank" href="../content/oop/01_Einfache_Klasse.html">Einfachst mögliche Klasse</a></li>
+            <li>
+              <strong>Constructor</strong> - wird immer beim Aufruf der Klasse ausgeführt.<br />
+              <a target="_blank" href="../content/oop/02_Constructor_Destruct_MagicClass.html">Beispiel Constructor</a> 
+            </li>
+            <li><strong>Destructor</strong> - wird immer am Ende der Klasse aufgeführt, wenn keine Referenzen zu dieser Klasse mehr vorhanden sind...wird vorallem gebraucht um DB-Verbindungen zu beenden.<br />
+              <a target="_blank" href="../content/oop/02_Constructor_Destruct_MagicClass.html">Beispiel Destructor</a></li>
+            <li>
+              <strong>Magic Constants</strong> - sind vorgefertigte Konstanten z.B. <strong>__CLASS__</strong> (gibt den Klassen-Namen aus, in der sich die Variable befindet)<br />
+              <a target="_blank" href="../content/oop/02_Constructor_Destruct_MagicClass.html">Beispiel Magic Constants</a>
+            </li>
+            <li>
+                <strong>Getters/Setter</strong> - Um eine robuste Klasse zu programmieren, sollte  <strong>public</strong> nicht verwendet werden.<br />
+                Mit <strong>Getter/Setter</strong> Funktionen können die Variablen in der Klasse verändert werden.<br/>
+                Es gibt dafür auch <strong>Magic Funktione z.B. __get</strong>. So muss man nicht für jede Variable einen eigene getter/setter Funktion schreiben.<br />
+              <a target="_blank" href="../content/oop/03_AccessModifiers_Getters_Setters.html">Beispiel Getters/Setters</a>
+            </li> 
+            <li>
+              <strong>Vererbung</strong> - Mit <strong>extends</strong> kann eine Klasse die Eigenschaften der erweiterten Klasse übernehmen.<br />
+              Mit <strong>protected</strong> stehen die Variablen der vererbten Klasse zur Verfügung.<br />
+              Mit <strong>parent::_construct($name, $age)</strong> kann man auf den Konstruktor der erweiterten Klasse zugreifen und diese Variablen überschreiben.<br />
+              <a target="_blank" href="../content/oop/04_Inheritance.html">Beispiel Inheritance</a>
+            </li>
+            <li>
+              <strong>Statische Variablen und Methoden</strong>. Statische Variablen und Funktionen werden mit <strong>static</strong> definiert. Eine statische Funktion kann mit <strong>self::variable</strong> oder innerhalb der Klasse mit <strong>User::funktion()</strong> aufgerufen werden.<br />
+              <a target="_blank" href="../content/oop/05_Static_Variable_Function.html">Beispiel statische Variablen/Funktionen</a>
+
+            </li>
+          </ul>
+        </p>
+      </div>
+     
+    </div>
+
+
+    <div id="framework-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Aufbau des MVC Core-Frameworks</h2>
+        
+        <p>In diesem Kurs bauen wir einen <strong>Base-Controller</strong>, der die Parameter aus der URL verarbeitet und dann eine <strong>Controller-Methode</strong> generiert, welche von der <strong>Controller-Klasse</strong> verarbeitet wird und wenn nötig aus dem <strong>Model </strong> die Daten aus der Datenbank zieht und die <strong>View-Klasse</strong> aktualisiert.<br /><br />Über eine <strong>.htaccess</strong> wird die URL in einen schöneres Format verwandelt, sprich aus <strong>app.com/index.php?url=posts/edit/1</strong> wird in <strong>app.com/posts/edit/1</strong> umgewandelt. </p>
+        <p class="emphasize">Diese PHP-MVC-Framework ist nur ein Beispiel, wie ein PHP-Framework aufgebaut sein kann. Es gibt natürlich sehr viele andere Möglichkeiten.</p>
+        
+      </div>
+    </div>
+    
+    
+    
+    
+    <div id="htaccess-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">URL Weiterleitungen</h2>
+        
+        <p><strong>Alle Anfragen über die URL, die auf keine existierende Datei verweisen, werden mittels <span style="text-decoration: underline;">.htaccess</span> (beim Apache-Server) auf die <span style="text-decoration: underline;">public/index.php</span> Datei weitergeleitet.</strong></p>
+
+        <p>In der <span style="text-decoration: underline;">index.php Datei</span> im <span style="text-decoration: underline;">PUBLIC Ordner</span> wird die <span style="text-decoration: underline;">bootstrap.php Datei</span> aus dem <span style="text-decoration: underline;">APP Ordner</span> geladen, wo dann die korrekten Files aus dem MVC-Framework aufgerufen werden</p>
+
+        <pre>
+          <strong>.htaccess FÜR APACHE SERVER</strong>
+          <code>
+            <IfModule mod_rewrite.c>
+              Options -Multiviews
+              RewriteEngine On
+              RewriteBase /albertosmvc/public
+              RewriteCond %{REQUEST_FILENAME} !-d
+              RewriteCond %{REQUEST_FILENAME} !-f
+              RewriteRule  ^(.+)$ index.php?url=$1 [QSA,L]
+            </IfModule>
+          </code>
+        </pre>
+        <pre>
+          <strong>Der Public Folder wird in der URL ausgeblendet</strong>
+          <code>
+              <IfModule mod_rewrite.c>
+                RewriteEngine on
+                RewriteRule ^$ public/ [L]
+                RewriteRule (.*) public/$1 [L]
+              </IfModule>
+          </code>
+        </pre>
+        <pre>
+          <strong>default.template.conf FÜR NGINX SERVER</strong>
+          
+          <code>
+            if (!-d $request_filename){
+              set $rule_0 1$rule_0;
+            }
+            if (!-f $request_filename){
+              set $rule_0 2$rule_0;
+            }
+            if ($rule_0 = "21"){
+              rewrite ^/(.+)$ /albertosmvc/public/index.php?url=$1 last;
+            }
+          </code>
+          <strong>Der Public Folder wird in der URL ausgeblendet</strong>
+          <code>
+            rewrite ^/$ /public/ last;
+	          rewrite /(.*) /public/$1 last;
+          </code>
+        </pre>
+        
+        <p class="emphasize">Auf dieser Webseite können .htaccess Einträge auf nginx Webserver-Befehle umgewandelt werden . <a href="https://timmehosting.de/htaccess-converter">https://timmehosting.de/htaccess-converter</a></p>
+        
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    <div  id="workflow-content" class="hide">
+      <div> 
+        <h2 class="no-margin-top">Workflow</h2>
+        
+        <p>Der Workflow ist wiefolgt:
+        
+          
+          <br />Klassen und Funktionen werden über die <strong>URL</strong> aufgerufen.<br /><br />
+          Beispiel:<br /> <strong>app.com/index.php?url=posts/edit/1</strong><br />
+          <ul>
+            <li>
+              <strong>posts</strong>  = <strong>Klasse</strong> Posts {} (index Funktion)<br /> 
+            </li>
+            <li>
+              <strong>edit</strong>   = <strong>Funktion</strong> edit()<br />
+            </li>
+            <li>
+              <strong>1</strong>      = <strong>Parameter ID</strong> edit($id)<br /><br />
+              <a target="_blank" href="../content/oop/06_workflow.html">Beispiel einer Klasse</a>
+            </li>
+          </ul>
+          </br>
+         </p>
+
+      </div>
+      
+    </div>
+    
+    
+    
+    <div id="aufbau-core-content" class="hide">
+      <div>
+        <h2  class="no-margin-top">Aufbau des Core-Frameworks</h2>
+        <h4>Controllers</h4>
+       
+        <ol>
+          <li>
+            <p> 
+              Im <strong>libraries Ordner</strong> liegt die Haupt-Controllerklasse <strong>Controller.php</strong>, sie steuert die Models (Ordner models) und Views (ordner views). Sie wird mit <strong>extends</strong> von den Controllern im <strong>controllers Ordner</strong>> erweitert .      
+            </p>
+          </li>
+          <li>
+            <p>
+              Da man mit <strong>extends Controller</strong> auf alle Funktion von <strong>Controller</strong> zugreifen kann, können nun die controller im <strong>controllers Ordner</strong> die <strong>model und views</strong> Funktionen ausführen. 
+            </p>
+          </li>
+          <li>
+            <p>
+              <strong>Ablauf Beispiel Pages</strong>
+              <ol>
+                <li><strong>Pages.php</strong> im <strong>controllers Ordner</strong> ruft die <strong>model Funktion</strong> des <strong>Controller.php</strong> auf</li>
+                <li>
+                  <strong>Controller.php</strong> holt die Daten aus dem entsprechenden <strong>model im models Ordner</strong>
+                </li>
+                <li>
+                  <strong>Pages.php</strong> im <strong>controllers Ordner</strong> ruft die <strong>view Funktion</strong> des <strong>Controllers.php</strong> auf und übergibt die Daten an die <strong>view Funktion</strong> in der <strong>Controllers.php</strong>. Diese lädt den entsprechenden <strong>view aus dem views Ordner</strong> und zeigt die Daten an.
+                </li>
+              </ol>
+            </p>
+          </li>
+          <li>
+            <p>In der <strong>config.php</strong> Datei werden für die <strong>Base URL</strong> und den <strong>Datei-Pfad</strong> Konstanten definiert und über die <stong>bootstrap.php</stong> Datei geladen</p>
+            <pre>
+              <code>
+                // Pfad im System Ordner
+                define('APPROOT', dirname(dirname(__FILE__)));
+
+                // Basis URL
+                define('URLROOT', 'http://localhost:8005/albertosmvc');
+
+                // Seitenname
+                define('SITENAME', 'AlbertosMVC');
+              </code>
+            </pre>
+          </li>
+          <li>
+            <p>In der <strong>bootstrap.php</strong> erstellen wir eine <strong>Autoloader Funktion</strong>. <em>Diese Funktion funktioniert nur, wenn der Filename identisch ist mit dem Klassenname</em></p>
+            <code>
+              spl_autoload_register(function($className) {
+                require_once('libraries/' . $className . '.php');
+              });
+            </code>
+          </li>
+          <li>
+            <p>Im <strong>views Ordner</strong> wird ein neuer Ordner <strong>inc</strong> angelegt, darin werden die <strong>header.php</strong>und <strong>footer.php</strong> Datei erzeugt.</p>
+            <p>In der <strong>header.php</strong> Datei wird das Stylsheet aus dem <strong>public Ordner</strong>, in die <strong>footer.php</strong> das Javascript importiert. Für die Pfade verwendet man die Konstanten des Config Files</p>
+            <p>Dann werden die <strong>header.php und footer.php</strong> in den <strong>pages</strong> im <strong>view Ordner</strong> mit require_once importiert.</p>
+          </li>
+        </ol>
+        <h4>Models</h4>
+        <ol>
+          <li>
+            <p>In der <strong>config.php</strong> werden die Konstanten für die MySQL Datenbank konfiguriert. Die DB-Verbindung erfolgt mit der <strong>PDO-Erweriterung (Php Document Object)</strong></p> 
+            <code>
+              <pre>
+                // Datenbank Parameter
+                define('DB_HOST', 'db');
+                define('DB_USER', 'root');
+                define('DB_PASSWORD', 'daa!1-8a');
+                define('DB_NAME', 'kursphp');
+                define('DB_PORT', '3306');
+              </pre>
+            </code>
+          </li>
+          <li>
+            <p>Im Ordner <strong>libraries</strong> werden in der <strong>Database.php Klasse</strong> die Datenbank-Anfragen verarbeitet (connect, prepared statements, bind value, return rows and results) </p>
+          </li>
+          <li>
+            <p>Im Ordner <storng>models</storng> wird eine neue Klasse <strong>Post.php</strong> angelegt. Darin wird im Konstruktor die DB Klasse <strong>Database.php</strong> iniziert. Im Ordner <strong>controllers</strong> wird das <strong>Post.php Model </strong> dann aufgerufen und das Resultat dem <strong>view</strong> übergeben</p>
+            <code>
+              <pre>
+                // postModel kommt aus der extended Core Controller Klasse
+                $this->postModel = $this->model('Post');
+              </pre>
+            </code>
+          </li>
+          <li>
+            <p>In der <strong>Database.php Klasse</strong> im <strong>libraries</strong> Ordner werden die Methoden definiert um sichere DB-Abfragen über die <strong>models</strong> zu verarbeiten. Funktionen: <br /><strong>prepare statment<br />bindValues (Datentypen-Prüfung)<br />execute<br />get results ( Alle Datensets - fetchAll | einzelner Datensatz - fetch | Anzahl der Einträge - rowCount ) </strong></p>
+          </li>
+          <li>
+            <p>Im <strong>model Ordner</strong> wird eine Klasse <strong>Post.php</strong> angelegt und die Funktionen für die Datenbankabfragen werden angelegt.</p>
+            <p>Beispiel:</p>
+            <code>
+              <pre>
+                public function getPosts() {
+                  $this->db->query("SELECT * FROM posts");
+                  return $this->db->resultSet();
+              }
+              </pre>
+            </code>
+            
+          </li>
+        </ol>
+        <h4>Views</h4>
+        <p>
+          im <strong>controller</strong> wird dann die <strong>Model-Klasse</strong> aufgerufen <strong>Post</strong> und die Funktion 
+          <code> 
+            <pre> $this->postModel = $this->model('Post');</pre>  
+          </code> 
+          ausgeführt. Das Resultat wird an die Klasse im <strong>view Ordner</strong> weitergeleitet:
+          <code>
+            <pre>
+              public function index () {
+
+                $posts = $this->postModel->getPosts();
+        
+                $data = [
+                    'title' => 'Welcome',
+                    'posts' => $posts
+                ];
+        
+                $this->view('pages/index', $data);
+            }
+            </pre>
+          </code>
+        </p>
+        <p>
+          Im <strong>view Ordner</strong> wird die Seite dann entsprechend angepasst
+          <code>
+            <pre>
+              
+              &lt;?php require APPROOT . '/views/inc/header.php'; ?&gt;
+              <&lt;?php echo $data['title'] ?&gt;
+              <ul>
+                &lt;?php foreach($data['posts'] as $post) : ?&gt;
+                      &lt;?php echo  &lt;li&gt; . $post->title . &lt;/li&gt;; ?&gt;
+                &lt;?php endforeach; ?&gt;
+              </ul>
+
+              &lt;?php require APPROOT . '/views/inc/footer.php'; ?&gt;
+            </pre>
+          </code>
+        </p>
+      </div>
+    
+    </div>
+
+    <div id="struktur-content" class="hide">
+      <div>
+        <h2  class="no-margin-top">Filestruktur</h2>
+        <p> 
+          <pre>
+          - app<br />
+            - config<br/>
+            - controllers<br />
+            - helpers<br />
+            - libraries<br />
+              - Controller.php<br />
+              - Core.php<br />
+              - Database.php<br />
+            - models<br />
+            - views<br />
+
+          - public<br/>
+            - css <br/>
+            - images <br/>
+            - js <br/>
+             index.php
+            
+        </pre>
+        </p>
+        
+      </div>
+    
+    </div>
+
+
+    
+    <div id="example-api-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Beispiel einer API mit dem Core-Frameworks</h2>
+        
+        <ol>
+          <li>
+            <h4>Vorbereitung</h4>
+            <ol>
+              <li>
+                <p>Das Coreframe wird in einen neuen Ordner der Entwicklungsumgebung kopiert.</p>
+              </li>
+              <li>
+                <p><strong>Ordnerstruktur</strong></p>
+                <code>
+                  <pre>
+                    app
+                    public
+                    .htaccess
+                  </pre>
+                </code>
+              </li>
+              <li>In der <strong>config.php</strong> werden die Konstanten angepasst und im <strong>public Ordner</strong> wird die <strong>RewriteBase</strong> korrigiert.</li>
+              <li>
+                In der MySQL Datenbank werden zwei Tabellen angelegt: <strong>users</strong> und <strong>posts</strong> und die entsprechenden Felder. (s. Datenbank)
+              </li>
+            </ol>
+          </li>
+        </ol>
+        <h4>Styles Startseite</h4>
+        <ol>
+          <li>
+            <p>Von der entsprechenden CDN die Links für <strong>Bootstrap 4.0 Javascript und Styles</strong> kopieren und in der <strong>header.php</strong> und <strong>footer.php</strong> einfügen.</p>
+            <p>Von der entsprechendn CDN den Link für <strong>fontAwsome</strong> in der <strong>header.php</strong> Datei einfügen</p>
+          </li>
+          <li>
+            <p>Im <strong>inc folder</strong> eine <strong>navbar.php</strong> Datei anlegen und aus der Bootstrap Webseite <strong>Example-Seite</strong> eine Navbar kopieren und die Links im Menü anpassen.</p>
+          </li>
+        </ol>
+        <h4>User Login</h4>
+        <ol>
+          <li>
+            <p>Im <strong>app/controllers Ordner</strong> legen wir eine neue <strong>Klasse Users.php</strong> und im Ordner <strong>app/views</strong> erstellen wir einen neuen Ordner <strong>users</strong> und eine Datei <strong>register.php</strong></p>
+          </li>
+          <li>
+            <p>in der Controller Klasse <strong>Users.php</strong> wir in der Funktion <strong>register()</strong> geprüft, ob es sich beim Laden der Seite um einen <strong>Post request handelt</strong> um das Formular abzuschicken oder ein gewöhnlicher Seitenaufruf um das <strong>Formular zu laden</strong></p>
+          </li>
+          <li>
+            In der <strong>view/users/register.php</strong> Datei erstellen wir ein Bootstrap-Formular. Als <strong>action</strong> wird die Funktion <strong>register im User.php Controller</strong> aufgerufen. Die Methode ist <strong>post</strong>.
+          </li>
+          <li>
+            Im <strong>User.php Controller</strong> werden bei den Funktionen <strong>register</strong> und <strong>login</strong> validiert.
+          </li>
+          <li>
+            Im <strong>models Ordner</strong> wird eine <strong>User.php</strong> angelegt. Als erstes wird geprüft, ob es den User bereits gibt und <storng>true oder false</storng> an den Controller zurückgegeben <strong>(im constructor)</strong>. Bei <strong>false</strong> wird bei der Registrierung als Fehler <strong>Benutzer bereits registriert</strong> angezeigt. 
+          </li>
+        </ol>
+        <h4>User in Datenbank speichern</h4>
+        <ol>
+          <li>
+            <p>Nachdem wir die <strong>Validierung</strong> abgeschlossen haben, wird der User in der Datenbank abgespeichert.</p>
+          </li>
+          <li>
+            <p>Dazu wir das Passwort zuerst mit gehashed: <strong>password_hash($data['password'], PASSWORD_DEFAULT)</strong></p>
+          </li>
+          <li>
+            <p>
+              Dann wird das ganze <strong>Data Array</strong> einer Funktion <strong>register($data)</strong> übergeben, die im <strong>model Users.php </strong> angelegt wird.
+            </p>
+            <p>Diese Funktion schreibt die Daten in die Datenbank</p>
+          </li>
+          <li>
+            Dann bereiten wir die Weiterleitung bei erfolgreicher Registrierung in einem <strong>helper</strong> File ein.
+            <code>
+              <pre>
+              function redirect($url) {
+
+                  header('location: ' . URLROOT . '/' .$url );
+              
+              }
+              </pre>
+            </code>
+          </li>
+        </ol>
+        <h4>Session verwalten</h4>
+        <ol>
+          <li>Im <strong>helper Ordner</strong> legen wir eine Datei <strong>session_helper.php</strong> an. Darin wird die Session Variable <strong>session_start()</strong> gestartet und über das <strong>bootstrap.php</strong> wird sicher gestellt, dass die session auf jeder Seite geladen wird.</li>
+          <li>Im selben File wird der Code für eine <strong>Flash-Nachricht</strong> erstellt. Diese wird im <strong>Controller</strong> befüllt <code> flash('register_success', 'Du wurdest registriert.');</code> und im <strong>View</strong> angezeigt. <code>&lt;?php flash('register_success'); ?&gt;</code> </li>
+        </ol>
+        <h4>Login prüfen und einloggen</h4>
+        <ol>
+          <li>Wie bei der <strong>register() Funktion</strong> prüfen wir bei der <strong>login() Funktion</strong> ob es den User gibt, sonst Fehler anzeigen, dass es den User nicht gibt.</li>
+        </ol>
+        <h4>Login prüfen mit hashed Passwort</h4>
+        <ol>
+          <li>In der <strong>login()</strong> Funktion im <strong>model User.php</strong> wird das Passwort aus der DB mit der Funktion <strong>password_verify($password, $hashed_password)</strong> das Passwort aus der DB mit dem Passwort aus dem Formular verglichen. Falls die Passwörter identisch sind, werden die Daten aus der db zurückgegeben.</li>
+        </ol>
+        <h4>User session und Logout</h4>
+        <ol>
+          <li>
+            <p>Im <strong>controllors Ordner</strong> in der Users.php Klasse legen wir eine neue Funktion an, welche bei erfolgreichem Login die User-Sessions verwaltet. (user_id, user_email, user_name) <strong>createUserSession($loggedInUser)</strong></p>
+            <p>In der gleichen Funktion legen wir eine Funktion an <strong>logout()</strong>, in welcher wir mit <strong>unset($_SESSION['user_id']) etc.</strong> alle obigen Werte wieder löschen.</p>
+            <p>mit <strong>session_destroy</strong> in der <strong>logout() Funktion</strong> werden alle Session Einträge gelöscht.</p>
+          </li>
+          <li>
+            <p>
+              <p>im <strong>views Ordner</strong> in der Ansicht der <strong>navbar.php</strong> erstellen wir einen Button für den Logout und führen die Funktion <strong>logout() </strong>im controller aus.</p>
+              <p>Die Buttons <strong>Registrieren und Anmelden</strong> werden nur bei ausgeloggtem Zustand angezeigt.</p>
+            </p>
+          </li>
+         
+        </ol>
+        <h2>Posts</h2>
+        <ol>
+          <li>
+            <p>es wird ein neuer <strong>Controller Posts.php</strong> angelegt</p>
+          </li>
+          <li>
+            <p>Darin wird die Fuktion <strong>index</strong> eingefügt.</p>
+          </li>
+          <li>
+            <p>Im <strong>Ordner views</strong> wird ein <strong>Ordner Posts.php </strong> und darin ein File <strong>index.php</strong> angelegt.</p>
+          </li>
+          <li>
+            <p>In der <strong>index.php</strong> werden Header.php und Footer.php importiert.</p>
+          </li>
+          <li>
+            <p>Zur Überprüfung, ob der User eingelogged ist, um Seiten vor unberechtigtem Zugang zu schützen, erstellen wir noch eine Funktion <strong>isLoggedIn()</strong> im <strong>helpers Ordner in der session_helper.php</strong> Datei. Darin wird geprüft, ob es eine Session mit user_id gibt: <strong>if(isset($_SESSION['user_id'])) etc. return false oder true</strong></p>
+          </li>
+          <li>
+            Wir prüfen im <strong>constructor der controller/Posts.php Klasse</strong> ob der User eingelogged ist. Wenn nicht, wird er zurück zum Login umgeleitet.
+          </li>
+          <li>
+            Um die Daten von der DB zu holen, legen wir im Ordner <strong>model</strong> eine Klasse <strong>Post.php</strong> an. Wir holen mit <strong>resultSet()</strong> alle Posts und bringen Sie über den <strong>controllers/Posts.php </strong> in den <strong>Post View</strong>
+          </li>
+          <li>
+            Da wir bei den Posts den Namen des Users möchten, müssen wir eine <strong>SQL JOIN </strong> Abfrage machen und vergleichen, wo die <strong>User Id</strong> in der Tabelle <strong>users</strong> mit der <strong>User Id</strong> der Tabelle <strong>posts</strong> übereinstimmt.
+            <code>
+              <pre>
+                $this->db->query("SELECT *, 
+                           posts.id as postId,
+                           users.id as userId
+                           FROM posts
+                           INNER JOIN users
+                           ON posts.user_id = users.id
+                           ORDER BY posts.created_at DESC
+                            ");
+
+              </pre>
+            </code>
+          </li>
+          <li>
+            <p><strong>Neue Posts</strong> - Um neue Posts anzulegen, programmieren wir die <strong>add()</strong> entsprechende Funktion im <strong>Posts.php controller</strong> </p>
+            <p>Im Ordner <strong>views</strong> legen wir in der <strong>add.php</strong> Datei ein ensprechendes Formular an</p>
+          </li>
+          <li>
+            <p>In der <strong>add() Funktion</strong> werden die Eingaben aus dem Formular sanitized und dan über das Model in der DB gespeichert.</p>
+            <p>Es wird noch eine Flash Nachricht angezeigt.</p>
+          </li>
+          <li>
+            <p>Für die Detailseite fügen wir eine <strong>show($id) Funktion in den Controller</strong>. Dieser ruft im view die <strong>Detailseite show.php auf</strong></p>
+            <p>
+              In der Detailseite <strong>show.php</strong> werden 2 Schaltflächen eingefügt <strong>Edit und Delete (ist eine Form)</strong>
+            </p>
+          </li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+<script>
+  /**
+  * Dem Menü und dem Content werden die Klassen hinzugefügt
+  * um diese zu aktivieren resp. deaktivieren
+  */
+  let menuPostman = document.querySelectorAll('.menu-rest-api button');
+
+  menuPostman.forEach((menuPostmanItem, i, menuPostman ) => {
+
+    menuPostmanItem.addEventListener('click', (e) => {
+
+      menuPostman.forEach( (item, i) => {
+        console.log(item.id);
+        
+        //menu
+        item.classList.remove('active')
+        
+        //inhalt
+        document.getElementById(item.id + "-content").classList.remove("show");
+        document.getElementById(item.id + "-content").classList.add("hide");
+      })
+      
+      // menu
+      e.currentTarget.classList.add('active')
+      
+      // inhalt
+      document.getElementById(e.currentTarget.id + "-content").classList.remove('hide');
+      document.getElementById(e.currentTarget.id + "-content").classList.add('show');
+    })
+  });
+
+</script>

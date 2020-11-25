@@ -1,0 +1,50 @@
+<pre>
+    <code>
+
+class User {
+
+    protected $name = "Alberto";
+    protected $age = 40;
+
+    public function __construct($name, $age) {
+        $this->name = $name;
+        $this->age = $age;
+    }
+}
+
+class Costumer extends User {
+
+    private $balance;
+
+    public function __construct($name, $age, $balance) {
+
+        parent::__construct($name,$age);
+        $this->balance = $balance;
+    }
+
+    public function pay($amount) {
+        return $this->name . " hat " . $amount . " einbezahlt." ;
+    }
+
+    public function __set($property, $value) {
+        if(property_exists($this, $property)) {
+            return $this->$property = $value;
+        }
+    }
+    public function __get($property) {
+        if(property_exists($this, $property)) {
+            return $this->$property;
+        }
+    }
+
+}
+
+
+$customer1 = new Costumer("Al Bundy", 30, 200);
+echo $customer1->pay(200);
+echo '<br />';
+
+$customer1->__set('balance', 5000);
+echo $customer1->__get('balance');
+    </code>
+</pre>

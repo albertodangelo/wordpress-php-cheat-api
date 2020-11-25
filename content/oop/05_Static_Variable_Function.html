@@ -1,0 +1,28 @@
+<pre>
+    <code>
+
+class User {
+
+    public $name;
+    public $age;
+    public static $minPathLength = 6;
+
+    public static function validatePass($pass) {
+        if(strlen($pass) >= self::$minPathLength ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+$password = "alberto"; 
+
+if(User::validatePass($password)) {
+    echo "Passwortlänge stimmt!";
+} else {
+    echo "Passwortlänge zu kurz!";
+}
+
+</code>
+</pre>

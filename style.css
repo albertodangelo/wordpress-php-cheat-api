@@ -1,0 +1,145 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+}
+aside {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+h2 {
+  margin-top: 50px;
+  color: #bbbbbb;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+aside button {
+  margin: 5px;
+}
+h4 {
+  text-decoration: underline;
+}
+
+#content {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 280px;
+}
+.emphasize {
+  font-size: 18px;
+  color: rgb(0, 172, 92);
+  border: 1px solid #000;
+  padding: 15px;
+  font-style: italic;
+}
+.emphasize:before,
+.emphasize:after {
+  content: '"';
+}
+button {
+  width: 100%;
+}
+.person {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+menu ul {
+  display: flex;
+  font-size: 14px;
+  z-index: 20;
+  position: absolute;
+}
+menu ul li {
+  list-style-type: none;
+  background: #e5e5e5;
+  margin-right: 30px;
+  padding: 20px;
+  cursor: pointer;
+}
+menu ul li:hover {
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+menu ul li.active {
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+menu ul li a {
+  text-decoration: none;
+  margin-right: 20px;
+  color: #000;
+  cursor: pointer;
+}
+
+#fetch-container {
+  padding: 80px;
+  padding-top: 100px;
+}
+
+.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 16px;
+}
+
+/* REST API MODUL */
+
+.active {
+  background: rgb(199, 255, 199);
+}
+.headless .active {
+  background: rgb(181, 207, 255);
+}
+
+.container-content {
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+}
+.menu-rest-api {
+  max-width: 300px;
+  padding-right: 30px;
+}
+.menu-rest-api button {
+  font-size: 18px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+#content-fetch {
+  padding: 20px;
+  border: 1px solid #ededed;
+  background: #ededed;
+}
+
+form#api-submit {
+  display: flex;
+  flex-direction: column;
+}
+textarea#body {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.show {
+  display: block;
+  width: 70vw;
+}
+.hide {
+  display: none;
+  width: 70vw;
+}

@@ -1,0 +1,244 @@
+<!-- FETCH API -->
+<div id="fetch-container">
+  <h1 style="">PHP oft gebraucht</h1>
+  <!-- <p style="font-size:12px; padding-bottom: 20px;">Udemy-Kurs | Dozent: Brad Treversy</p> -->
+  <div class="container-content">
+    <div class="menu-rest-api headless">
+      <button id="global_vars" class="active">Globale PHP Variablen</button>
+      <button id="php_functions">PHP Funktionen</button>
+      <button id="sessions">Sessions</button>
+    </div>
+
+    <div id="global_vars-content" class="show">
+      <div>
+        <h2 class="no-margin-top">Globale PHP Variablen</h2>
+        <ul>
+          <li>
+            <p><strong>$_GET['url']</strong> extrahiert die Werte aus einer URL<./p>
+          </li>
+          <li>
+            <p>Die magische Konstante <strong>__DIR__</strong> gibt den Filepfad inkl der Datei aus</p>
+            <p>Die Funktion <strong>dirname()</strong> gibt den Pfad bis zum Ordner an (resp. eine Ebene höher)</p>
+            <code>
+              __DIR__;
+            </code>
+            <code>
+              // zwei Ebenen höher in der Filestruktur<br />
+              dirname(dirname(__DIR__)) 
+            </code>
+          </li>
+          <li>
+            <p>Konstanten erstellen mit <strong>define('Name', 'Wert')</strong></p>
+            <code>
+                // Pfad zum Ordene App im System Ordner
+                define('APPROOT', dirname(dirname(__FILE__)));
+
+            </code>
+          </li>
+          <li>
+            <p><strong>$_SERVER['REQUEST_METHOD']</strong> ist globale Variable zur Prüfung des Aufrufs</p>
+            <code>
+              <pre>
+              // Prüft ob das Formular verschickt wurde oder ob die Seite 
+              // normal aufgerufen wurde
+              if($_SERVER['REQUEST_METHOD'] == 'POST' ) {
+                  // Das Formular wird verarbeitet
+              } else {
+                  // Das Formular wird geladen
+              }
+            </pre>
+            </code>
+          </li>
+          
+        </ul>
+      </div>
+     
+    </div>
+
+
+    <div id="php_functions-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">PHP Funktionen - oft gebraucht</h2>
+        <ul>
+          <li>
+            <p>Löscht zeichen am Ende eines Strings</p>
+            <code>
+              rtrim($_GET['url'],'/');
+            </code>
+          </li>
+          <li>
+            <p>Prüft Eingaben auf schädliche Inhalte</p>
+            <code>
+              filter_var($url, FILTER_SANITIZE_URL);
+            </code>
+          </li>
+          <li>
+            <p>Trennt URL nach einem bestimmten Zeichen und verwandelt die Werte in ein Array.</p>
+            <code>
+              explode('/', $url);
+            </code>
+          </li>
+          <li>
+            <p>Wie echo aber für arrays</p>
+            <code>
+              print_r( $url);
+            </code>
+          </li>
+          <li>
+            <p>Grosschreibung des ersten Buchstabens</p>
+            <code>
+              ucwords( $url);
+            </code>
+          </li>
+          <li>
+            <p>Mit array_multisort kann man ein Assoziatives Array nach den Keys filtern. In diesem Beispiel, gibt es einen key "order"</p>
+            <code>
+              $price = array_column($myArray, 'order');<br />
+			        array_multisort($price, SORT_ASC, $myArray);
+            </code>
+          </li>
+          <li>
+            <p>Mit dieser Funktion kann man ein JSON FORMAT aus Objekten, Resultat aus "json_decode( $responseBody )", in ein strukturiertes PHP Array umwandeln </p>
+            <code>
+              <pre>
+                $myArray = array_reduce($resultResponse, function ($result, $item) {
+				
+                  $item = (array) $item;
+                  unset($item["date"]);
+                  $item['newtime'] = $item['time'];
+          
+                  if($item["day"] === "Montag") {
+                    $item["order"] = 1;
+                  }
+                  if($item["day"] === "Mittwoch") {
+                    $item["order"] = 2;
+                  }
+                  if($item["day"] === "Donnerstag") {
+                    $item["order"] = 3;
+                  }
+          
+                  if($item["day"] === "Montag" || $item["day"] === "Mittwoch" || $item["day"] === "Donnerstag") {
+          
+                    $key = $item['time'];
+                    unset($item['time']);
+                    $result[$key] = $item;
+                  }
+                
+                  return $result;
+                }, array());
+              </pre>
+            </code>
+          </li>
+          <li>
+            <p>Prüft ob ein File bereits existiert</p>
+            <code>
+              <pre>
+                if(file_exists('../app/views/'. $view . '.php')) {
+           
+                  require_once('../app/views/'. $view . '.php'); 
+                
+              } else {
+                  die("Diese Ansicht existiert nicht.");
+              }
+              </pre>
+            </code>
+          </li>
+          <li>
+            <p>Erstellt ein gehashtes Passwort</p>
+            <code>
+              <pre>
+                password_hash($data['password'], PASSWORD_DEFAULT)
+              </pre>
+            </code>
+          </li>
+          <li>
+            <p>Vergleicht das hashed Passwort aus der DB mit der Eingabe aus dem Formular.</p>
+            <code>
+              <pre>
+                password_verify($password, $hashed_password)
+              </pre>
+            </code>
+          </li>
+          <li>
+            <p>Header für Weiterleitungen </p>
+            <code>
+              <pre>
+                header('location: ' . URLROOT . '/' .$url );
+              </pre>
+            </code>
+          </li>
+        </ul>
+        
+      </div>
+    </div>
+    
+  
+ 
+    
+    <div  id="sessions-content" class="hide">
+      <div> 
+        <h2 class="no-margin-top">Sessions</h2>
+        <p>In den Sessions werden die User Infos in einer globalen Variable gespeichert</p>
+        <code>
+          <pre>
+            $_SESSION['user'] = "Brad";
+          </pre>
+        </code>
+        <p>Um eine Session wieder zu löschen kann die Funktion unset() verwendet werden</p>
+        <code>
+          <pre>
+            unset($_SESSION['user']);
+          </pre>
+        </code>
+        <p>Um die Session Variable zu aktivieren, muss auf jeder Seite, auf der man sie verwenden möchte, die Session Variable aufgerufen werden.</p>
+        <code>
+          <pre>
+            session_start();
+          </pre>
+        </code>
+        <p>Alle Session-Einträge löschen</p>
+        <code>
+          <pre>
+            session_destroy();
+          </pre>
+        </code>
+      </div>
+
+    
+    </div>
+       
+
+  </div>
+</div>
+<script>
+  /**
+  * Dem Menü und dem Content werden die Klassen hinzugefügt
+  * um diese zu aktivieren resp. deaktivieren
+  */
+  let menuPostman = document.querySelectorAll('.menu-rest-api button');
+
+  menuPostman.forEach((menuPostmanItem, i, menuPostman ) => {
+
+    menuPostmanItem.addEventListener('click', (e) => {
+
+      menuPostman.forEach( (item, i) => {
+        console.log(item.id);
+        
+        //menu
+        item.classList.remove('active')
+        
+        //inhalt
+        document.getElementById(item.id + "-content").classList.remove("show");
+        document.getElementById(item.id + "-content").classList.add("hide");
+      })
+      
+      // menu
+      e.currentTarget.classList.add('active')
+      
+      // inhalt
+      document.getElementById(e.currentTarget.id + "-content").classList.remove('hide');
+      document.getElementById(e.currentTarget.id + "-content").classList.add('show');
+    })
+  });
+
+</script>

@@ -1,0 +1,110 @@
+<!-- FETCH API -->
+<div id="fetch-container">
+  <h1  style="margin-bottom: 0">Headless App mit Wordpress Backend</h1>
+  <p style="font-size:12px; padding-bottom: 20px;">Linkedin-Kurs | Dozent: Morton Hendrikson</p>
+  
+  <div class="container-content">
+    <div class="menu-rest-api headless">
+      <button id="planning" class="active">Planung der App</button>
+      <button id="backend">Wordpress Backend</button>
+      <button id="custom-fields">Eigene Felder (Custom Fields)</button>
+      <button id="example-app">Beispiel eine Headless App</button>
+    </div>
+
+    <div id="planning-content" class="show">
+      <div>
+        <h2 class="no-margin-top">Planung der Webseite</h2>
+        <p>Am besten, man erstellt zuerst ein <strong>Wireframe des Userflows </strong>mit allen Funktionen</p>
+        <p>Beispiel: <a target="_blank" href="../content/taskbook_userflow.pdf">Planungsbeispiel eines Userflow Wireframes</a></p>
+      </div>
+     
+    </div>
+
+
+    <div id="backend-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Vorbereitung WP-Backends</h2>
+        <p>Für dieses Beispiel Projekt wird für die Wordpress Backend-Funktionalität ein <strong>Custom Posttype Plugin</strong> programmiert: 
+        <strong>
+          <ul>
+          <li>Custom-Posttypes</li>
+          <li>User - Rollen</li>
+          <li>Status</li>
+        </ul>
+      </strong> </p>
+        <p>Fertiges WP-Plugin: <a target="_blank" href="../content/taskbook">Starterplugin für das WP Backend</a></p>
+        <p class="emphasize">In diesem Beispiel-Plugin haben die Task-User nur Zugriff auf Ihre eigenen Taks und nur sie und der Administrator können diese editieren und löschen. Dafür wird im Plugin ein Bereich roles.php dafür angelegt und die Rechte entsprechend vergeben.</p>
+      </div>
+    </div>
+
+
+
+    
+    
+    <div id="custom-fields-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Eigene Felder - Custom Fields</h2>
+        <p></p>
+        <p>Bei diesem Beispiel für eine Headless App werden folgende Custom Fields benötigt:
+          <ul>
+            <li>Prediction</li>
+            <li>Pre-task stress level</li>
+            <li>Outcome</li>
+            <li>Post-taks stress level</li>
+            <li>Task status</li>
+          </ul>  
+        </p>
+        <p>Alle Felder, ausser <strong>Taks status</strong> benötigen <strong>Metaboxes</strong>, da sie vom User ausgefüllt werden</p>
+        <p><strong>Task Status</strong> ist nicht sichtbar, da es automatisch von Wordpress aktualisiert wird. Daher wird für dieses Feld <strong>keine Metabox</strong> verwendet. Siehe Funktionalität im Plugin <strong>status.php</strong></p>
+        <h2>Metaboxen mit CMB2</h2>
+        <p>Für die <strong>Metaboxen</strong> wird im Kurs das Plugin <strong>CMB2</strong> verwendet. Der Vorteil gegenüber <strong>ACF</strong> (advanced custom field) ist, dass CMB2 einfach in einem Plugin-Ordner abgelegt und dort verwendet werden kann. <a href="https://cmb2.io">https://cmb2.io</a>.</p>
+        <p class="emphasize"><strong>Installation von CMB2:</strong> Das Plugin wird heruntergeladen und im bestehenden "taskbook" Plugin entzipt.<br />Um alle Funktionalitäten zu sehen, kann einfach die Datei <strong>example-functions.php</strong> in ein neues File kopiert werden. Dann sind alle Variationen der verschiedenen Felder im Frontend sichtbar und man kann auskommentieren, was man nicht braucht.</p>
+
+      </div>
+      
+    </div>
+    
+    
+    
+    <div id="example-app-content" class="hide">
+      <div>
+        <h2  class="no-margin-top">Beispiel Headless App</h2>
+        <p>Die App ist ein Taskmanager, der die Stimmung vor und nach der Umsetzung einer Aufgabe darstellen soll. <a target="_blank" href="../content/TaskBookApp">Starterplugin für das WP Backend</a></p>
+        <p class="emphasize">Die App funktioniert, allerdings werden die neuen Tasks als "private" abgespeichert und ich habe es leider nicht geschafft, private tasks(posts) im Frontend mit der Fetch-API abzufragen.</p>
+      </div>
+    
+    </div>
+  </div>
+</div>
+<script>
+  /**
+  * Dem Menü und dem Content werden die Klassen hinzugefügt
+  * um diese zu aktivieren resp. deaktivieren
+  */
+  let menuPostman = document.querySelectorAll('.menu-rest-api button');
+
+  menuPostman.forEach((menuPostmanItem, i, menuPostman ) => {
+
+    menuPostmanItem.addEventListener('click', (e) => {
+
+      menuPostman.forEach( (item, i) => {
+        console.log(item.id);
+        
+        //menu
+        item.classList.remove('active')
+        
+        //inhalt
+        document.getElementById(item.id + "-content").classList.remove("show");
+        document.getElementById(item.id + "-content").classList.add("hide");
+      })
+      
+      // menu
+      e.currentTarget.classList.add('active')
+      
+      // inhalt
+      document.getElementById(e.currentTarget.id + "-content").classList.remove('hide');
+      document.getElementById(e.currentTarget.id + "-content").classList.add('show');
+    })
+  });
+
+</script>

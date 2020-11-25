@@ -1,0 +1,208 @@
+<!-- FETCH API -->
+<div id="fetch-container">
+  <h1 style="margin-bottom: 0">Wordpress REST-API</h1>
+  <p style="font-size:12px; padding-bottom: 20px;">Linkedin-Kurs | Dozent: Morton Hendrikson</p>
+ 
+  <div class="container-content">
+    <div class="menu-rest-api">
+      <button id="routes-endpoints" class="active">Routes - Endpoints</button>
+      <button id="embed">Embed für Posts-Detailseiten</button>
+      <button id="postman">Postman</button>
+      <button id="testdata">Testdaten in Wordpress</button>
+      <button id="custom-post-type">Custom Post Types &<br />Taxonomies</button>
+      <button id="custom-fields">Custom Fields</button>
+      <button id="authentication">Authentication &<br />Authorization</button>
+      <button id="beispiele">Code-Beispiele REST API</button>
+    </div>
+
+    <div id="routes-endpoints-content" class="show">
+      <div>
+        <h2 class="no-margin-top">Rest API Routes in WP</h2>
+        <p><strong>www.domain.ch/wp-json/wp/v2/posts</strong> -> zeigt die letzten 10 Posts an<br /><br />
+          Als Tool für die <strong>Abfrage kann z.B. Postman</strong> verwendet werden.</p>
+      </div>
+      <div>
+        <h2>Endpoint-Index WP</h2>
+        <strong>www.domain.ch/wp-json/wp/v2/</strong>
+        <p class="emphasize">
+          Diese Route zeigt eine Übersicht aller Endpoints an, inklusive GET/POST Methoden und Argumenten.</p>
+          <h2>Beispiel eines GET requests</h2>
+          <p>Ziel: Ich möchte 2 Posts ab Seite 2</p>
+          <p><strong>www.domain.ch/wp-json/wp/v2/posts?page=2&per_page=2</strong></p>
+      </div>
+    </div>
+
+
+    <div id="embed-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Embed für die Post-Detailseite</h2>
+        <p>Auf den Detailseiten der Posts werden nur die wichtigsten Daten angezeigt. Möchte man jedoch alle Daten anzeigen, wie Bilder, Kommentare etc. hat man die Möglichkeit der URL embed hinzuzufügen. Dann werden alle Daten angezeigt.</p>
+        <strong>https://iyengar-yoga-horgen.ch/wp-json/wp/v2/posts/1?_embed</strong>
+        <p class="emphasize">
+          Um auf die Detailseite eines Posts zu gelangen kann man unter _links mit "self" auf die Detailseite des Posts gelangen.<br /> z.B. : https://iyengar-yoga-horgen.ch/wp-json/wp/v2/posts/1
+        </p>
+      </div>
+    </div>
+
+    <div id="beispiele-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Wordpress Cookie-Session-Verwaltung</h2>
+        <p>Dies ist ein Beispiel, wie mit der Rest-API Daten <strong>im WP-Backend, sprich bei eingeloggtem Zustand</strong>, mit POST-Requests geändert werden können. Es wird dazu das Wordpress eigene Autorisierungssystem mit <strong>Cookies und Nounces</strong>  verwendet.</p>
+        <p>Lern-Video: <a target="_blank" href="../content/2822348_04_03_XR15_cookie.mp4">Wordpress Cookies</a></p>
+        <p>Das WP Plugin zum Video: <a href="../content/restedit.zip">Wordpress Cookies</a></p>
+        <p></p>
+        <p class="emphasize">
+          
+        </p>
+      </div>
+      <div>
+        <h2 class="no-margin-top">Standalone Applikation</h2>
+        <p>Dieses Beispiel vermittelt, wie Daten aus Wordpress mit der <strong>Javascript Fetch API</strong> in einer völlig unabhängigen Applikation dargestellt werden können</p>
+        <p>Lern-Video: <a target="_blank" href="../content/2822348_04_04_XR15_wpreader.mp4">Wordpress Cookies</a></p>
+        <p>Die Standalone Applikation: <a target="_blank" href="../content/wp-reader">Standalone WP Reader</a></p>
+        <p></p>
+        <p class="emphasize">
+         
+        </p>
+      </div>
+      <div>
+        <h2 class="no-margin-top">CRUD Standalone Applikation mit JWT Token-Autorisierung</h2>
+        <p>Dieses Beispiel vermittelt, wie Daten aus Wordpress mit der <strong>Javascript Fetch API</strong> in einer völlig unabhängigen Applikation dargestellt und die Daten in Wordpress aktualisiert oder gelöscht werden können</p>
+        <p>Lern-Video: <a target="_blank" href="../content/2822348_04_05_XR15_wpedit.mp4">JWT-Token Autorisierung</a></p>
+        <p>Die Standalone Applikation: <a target="_blank" href="../content/wpedit-JWT">Standalone Edit Wordpress</a></p>
+        <p></p>
+        <p class="emphasize">
+         
+        </p>
+      </div>
+    </div>
+    
+    <div id="authentication-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Authentication and Authorization</h2>
+        <p>Wordpress selber arbeitet mit <strong>Cookies</strong> für den Autorisierungsprozess</p>
+        <p>Für Headless Application oder APPs muss OAuth oder JWT verwendet werden.</p>
+        <h2>JWT Autorisierung</h2>
+        <ol>
+          <li>JWT support Plugin</li>
+          <li>Secret key in config.php</li>
+          <li>JWT Unterstützung auf dem Server</li>
+        </ol>
+        <p>Folgende Plugin wird für JWT-Autorisierung empfohlen: <strong>JWT Authentication for WP REST API</strong></p>
+        <p>Es müssen folgende Einstellungen vorgenommen werden</p>
+        <ol>
+          <li>PHP Autorisierung im Header im .htaccess File<br ><code>RewriteEngine on<br /><br />
+            RewriteCond %{HTTP:Authorization} ^(.*)<br />
+            RewriteRule ^(.*) - [E=HTTP_AUTHORIZATION:%1]</code><br /><br /></li>
+            <li>In der PHP config.php Datei muss folgender Code erfasst werden: <br ><br />
+            <code>
+              define('JWT_AUTH_SECRET_KEY', 'your-top-secret-key');<br />
+              define('JWT_AUTH_CORS_ENABLE', true);
+            </code><br /><br />
+            Um einen eindeutigen Schlüssel zu generieren kann der Wordpress key generater verwendet werden:  <a href="https://api.wordpress.org/secret-key/1.1/salt/"> https://api.wordpress.org/secret-key/1.1/salt/</a> 
+          </li>
+        </ol>
+        <h2>Test des JWT Plugins mit Postman</h2>
+        <h3>Schritt 1 - Token mit POST generieren</h3>
+        <p>Um das ganze mit Postman zu testen, muss zuerst das Passwort erfasst werden und dann kann das Token im Header mitgeschickt werden, um Änderungen vorzunehmen</p>
+        Route: <code>{{base_url}}/index.php/wp-json/jwt-auth/v1/token</code><br />
+        Type: "JSON"
+        Body: <code><br /><br />
+          {<br />
+            "username": "alberto",<br />
+            "password": "alberto"<br />
+        }<br />
+        </code>
+        <h3>Schritt 2 - Änderung mit POST übermitteln</h3>
+        <ol>
+          <li>Post Route aufrufen: {{base_url}}/index.php/wp-json/wp/v2/posts/1</li>
+          <li>Type auf POST ändern</li>
+          <li>Authorisation Type: bearer</li>
+          <li>Token in Feld token einfügen</li>
+          <li>Body (z.B.) Title ändern: <code><br /><br />
+            {<br />
+              "title": "Hallo Alberto2<br />
+            }<br />
+          </code></li>
+        </ol>
+        <p class="emphasize">
+          Nach dem die Konfiguration im für das JWT Token eingerichtet worden sind, erscheinen in der REST API route alle Endpoints für den Autorisierungsprozess via JWT Token. (REST API root in der Postman Collection)  
+        </p>
+      </div>
+    </div>
+    
+    <div id="custom-post-type-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Custom Post Type</h2>
+        <p>Empfohlenens Wordpress-Plugn : <strong>CPT UI</strong></p>
+        <p>Wichtige Einstellung im CPT UI Plugin: <strong>"show_in_rest"</strong> muss <strong>true</strong> sein.</p>
+        <p class="emphasize">Damit es bei der WP REST API nicht zu Fehlern kommt, sollten Taxonomies nie gelöscht werden. Man sollte sie einfach nur ergänzen.</p>
+        <p class="emphasize">
+          Custom Post Types und Taxonomies können in Postman unter "Post Types" und "Taxonomies" abgefragt werden (Dazu muss natürlich die vorgefertigten Collections importiert werden: <a href="../content/WP_REST_API.postman_collection.json" target="_blank">Postman - meistverwendete vorgefertigte API Abfragen</a>
+        </p>
+      </div>
+    </div>
+    
+    
+    <div id="custom-fields-content" class="hide">
+      <div>
+        <h2 class="no-margin-top">Custom Fields</h2>
+        <p></p>
+        <p>Beispiel eines <strong>Custom Field Plugins</strong>: <a href="../content/restfields.php" target="_blank">restfields.php Plugin</a></p>
+        <p>Dieses Beispiel eines Plugins erzeugt eine Funktion, welche eine Liste aller Kategorien aufzeigt. Diese Liste wird dann in der REST API zu den Posts hinzugefügt. (Code anschauen und in Testumgebung einfügen)</p>
+      </div>
+      <p class="emphasize">In Postman testen: Einen Post mit verschiedenen Kategorien suchen (bei Hover sieht man die ID). Dann in Postman mit der Postroute und der ID die Daten abfragen und es sollte "catlinks" erscheinen. Statt "post" könnte man mit dem selben Meccano natürlich auch "page" verwenden</p>
+    </div>
+    
+    
+    <div id="postman-content" class="hide">
+      <div>
+        <h2  class="no-margin-top">POSTMAN-Sammlung der meist verwendeten API Anfragen</h2>
+        <p><a href="../content/WP_REST_API.postman_collection.json" target="_blank">Postman - meistverwendete vorgefertigte API Abfragen</a></p>
+        <p>Diese können einfach über POSTMAN "Import" und so zu Postman hinzugefügt werden.</p>
+        <p class="emphasize">Um diese vorgefertigten GET requests für verschiedene Webseiten zu verwenden, kann bei Postman eine Entwicklungsumgebung eingerichtet werden. Dafür oben rechts auf das Schieberegler-Symbold drücken und die Base-URL erfassen. Alle diese URLs können dann mit dem Dropdown rechts neben dem Zahnrad selektiert werden.</p>
+      </div>
+    </div>
+    
+    <div id="testdata-content" class="hide">
+      <div>
+        <h2  class="no-margin-top">Testdaten für Wordpress installieren</h2>
+        <p><a href="https://codex.wordpress.org/Theme_Unit_Test" target="_blank">Testdaten Setup</a></p>
+        <p class="emphasize">Falls bei Permalinks die "Einfach" eingestellt ist muss die API URL wie folgt geändert werden: http://example.com/?rest_route=/wp/v2/posts/123</p>
+      </div>
+    
+    </div>
+  </div>
+</div>
+<script>
+  /**
+  * Dem Menü und dem Content werden die Klassen hinzugefügt
+  * um diese zu aktivieren resp. deaktivieren
+  */
+  let menuPostman = document.querySelectorAll('.menu-rest-api button');
+
+  menuPostman.forEach((menuPostmanItem, i, menuPostman ) => {
+
+    menuPostmanItem.addEventListener('click', (e) => {
+
+      menuPostman.forEach( (item, i) => {
+        console.log(item.id);
+        
+        //menu
+        item.classList.remove('active')
+        
+        //inhalt
+        document.getElementById(item.id + "-content").classList.remove("show");
+        document.getElementById(item.id + "-content").classList.add("hide");
+      })
+      
+      // menu
+      e.currentTarget.classList.add('active')
+      
+      // inhalt
+      document.getElementById(e.currentTarget.id + "-content").classList.remove('hide');
+      document.getElementById(e.currentTarget.id + "-content").classList.add('show');
+    })
+  });
+
+</script>
